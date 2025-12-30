@@ -23,3 +23,16 @@ Commit Objects:
 it point to the tree
 contains autohr, date, message, and the parent commit
 A commit is a coe snapshot 
+types of objects: Blob, Tree and Commit
+
+The three areas of coding in Git
+
+The Working Area
+The Staging Area: files going to be the part of the commit
+The Repository: The files git knows about and which contains all the commit
+
+#The Staging Area
+
+GIT ADD -P: it allows you to stage commits in chunks, interactively
+
+Git stash is to save your un-committed work
