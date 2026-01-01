@@ -1,38 +1,44 @@
-# my-git-notes
-A simple repository where I am writing all the things I learned from "Frontend Masters: Git in-Depth"
+# Git In-Depth: Learning Notes
 
-Porcelain in git: It is the interface, the command that you type in the terminal to interface with Git
-Plumbing in git: How git works under the hood
+*Notes and key takeaways from the Frontend Masters "Git In-Depth" course.*
 
-Git: It is a Distributed Version Control System
+## Core Concepts: Porcelain vs. Plumbing
+Git is built in layers. Understanding the difference helps when things break.
 
-Git stores the compressed data in a blob, along with in a header:
-the identifier blob
-the size of the content
-\0 delimiter, string terminator
-content
+- **Porcelain:** The user-friendly interface commands (e.g., `git add`, `git commit`, `git push`).
+- **Plumbing:** The low-level commands that do the heavy lifting under the hood (e.g., `git hash-object`, `git cat-file`).
 
-Git stores the object in .git directory
+> **Definition:** Git is a **Distributed Version Control System (DVCS)**. Unlike a central server model, every developer has a full copy of the repository and history.
 
-blob is stored in the objects directory
+## Git Under the Hood (Plumbing)
 
-I dentical content in Git only is stored ones, it also does not store an empty directory.
+### How Git Stores Data
+Git is a content-addressable filesystem. It stores **snapshots**, not differences.
 
-Commit Objects:
+- **The `.git` Directory:** All objects are stored in `.git/objects`.
+- **Deduplication:** Git is efficient. Identical content is stored **only once**.
+- **Empty Directories:** Git **does not** track empty directories. It only tracks files (content).
 
-it point to the tree
-contains autohr, date, message, and the parent commit
-A commit is a coe snapshot 
-types of objects: Blob, Tree and Commit
+### The Object Model
+There are three main types of objects:
 
-The three areas of coding in Git
+1. **Blob:** Stores file content only. No filenames or timestamps.
+   - *Structure:* `blob <size>\0<content>`
+2. **Tree:** Represents a directory. Maps filenames to Blobs or other Trees.
+3. **Commit:** A snapshot of the project.
+   - *Contains:* Metadata (Author, Date, Message).
+   - *Pointers:* Points to a Tree (root) and a Parent Commit.
 
-The Working Area
-The Staging Area: files going to be the part of the commit
-The Repository: The files git knows about and which contains all the commit
+## The Three Areas of Git
+1. **Working Area:** The files currently on your disk that you are editing.
+2. **Staging Area (Index):** The "holding zone" for files about to be committed.
+3. **Repository:** The committed history stored in the `.git` directory.
 
-#The Staging Area
+## Key Commands & Workflows
 
-GIT ADD -P: it allows you to stage commits in chunks, interactively
+### Advanced Staging
+- **`git add -p`:** Stages commits in chunks (interactive mode).
+- *Why:* Allows you to split one file's changes into multiple atomic commits.
 
-Git stash is to save your un-committed work
+### Saving Work
+- **`git stash`:** Saves uncommitted work (staged and unstaged) to a stack and reverts the working directory to the last commit.
