@@ -180,3 +180,54 @@ git stash
 
 # The BETTER stash (includes new files)
 git stash -u
+
+## 3. Practical Application: HEAD in Daily Work
+You use `HEAD` to traverse time and undo mistakes.
+
+| Scenario | Command | Logic (The "Why") |
+| :--- | :--- | :--- |
+| **The "Undo"** | `git reset --soft HEAD~1` | "Move the Pointer (and Sticky Note) back one step, but leave the files on my desk." (Fixes a bad commit). |
+| **The "Time Travel"** | `git checkout HEAD~1` | "Detach HEAD to look at the previous page." (Isolates when a bug appeared). |
+| **The "Alt-Tab"** | `git checkout -` | "Move HEAD back to the *previous* reference I was looking at." (Fast context switching). |
+| **The "Sanity Check"** | `git diff HEAD` | "Compare the dirty files on my desk against what HEAD is currently pointing to." |
+
+---
+
+## 4. Merging vs. Rebasing (The Integrators)
+Both commands combine work, but they change history differently.
+
+### Option A: The Merge (`git merge`)
+**The Safe, Honest Approach.**
+* **Analogy:** You write a **"Summary Page"** that ties two chapters together.
+* **Mechanism:** Git creates a new **Merge Commit** with *two* parents.
+* **Pros:** Non-destructive. It preserves the exact history of when commits happened.
+* **Cons:** "Pollutes" the history with merge commits. The graph can look messy.
+
+### Option B: The Rebase (`git rebase`)
+**The Clean, Destructive Approach.**
+* **Analogy:** You rip your pages out of the book, burn them, and **re-write** them starting from the latest page of the main branch.
+* **Mechanism:** Git **copies** your commits and applies them one by one on top of the target branch.
+    * **CRITICAL:** The new commits have **NEW HASHES**. They are effectively new pages. The old pages are abandoned.
+* **Pros:** Linear history. No merge commits. It looks clean, like a straight line.
+* **Cons:** **Dangerous.** You are rewriting history.
+
+> **⚠️ The Golden Rule:** NEVER rebase a public branch (a branch others are working on). You will burn pages that your teammates are currently holding, causing massive conflicts.
+
+---
+
+## 5. Prove It (The Lab)
+Don't trust the GUI. Run these commands in your terminal to see the raw plumbing used in the *Advanced Git* slides.
+
+```bash
+# 1. See the Sticky Note (Branch Ref)
+cat .git/refs/heads/main
+# Output: A long hash (e.g., 4a3b2c...) -> This is the commit ID.
+
+# 2. See Your Eyes (HEAD)
+cat .git/HEAD
+# Output: ref: refs/heads/main -> HEAD points to the branch name.
+
+# 3. Detach HEAD (Look at a commit directly)
+git checkout [hash-from-step-1]
+cat .git/HEAD
+# Output: [hash] -> HEAD now points directly to a commit. You are "detached".
