@@ -183,6 +183,7 @@ git stash -u
 
 ## 3. Practical Application: HEAD in Daily Work
 You use `HEAD` to traverse time and undo mistakes.
+```
 
 | Scenario | Command | Logic (The "Why") |
 | :--- | :--- | :--- |
