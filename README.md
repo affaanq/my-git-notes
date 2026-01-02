@@ -42,3 +42,37 @@ There are three main types of objects:
 
 ### Saving Work
 - **`git stash`:** Saves uncommitted work (staged and unstaged) to a stack and reverts the working directory to the last commit.
+
+- # Git Stash: The No-Nonsense Guide
+
+**The Brutal Truth:** Most developers use `git stash` as a crutch because they are afraid to commit incomplete work. While it is an essential tool for context switching, if you have a stack of 20 stashes, you are doing it wrong.
+
+This guide explains how to use it, when to use it, and how to avoid shooting yourself in the foot.
+
+---
+
+## 1. The Analogy: "The Panic Drawer"
+
+Imagine you are a mechanic fixing an engine. Parts are everywhere. Suddenly, your boss yells that you need to fix a flat tire **NOW**.
+
+You cannot fix a tire on a workbench covered in engine parts.
+* **The Bad Way:** Work around the mess, lose screws, mix up tools.
+* **The Git Stash Way:** Sweep everything currently on the bench into a **temporary drawer**. The bench is clean. You fix the tire. You open the drawer and dump the engine parts back exactly where they were.
+
+**Technical Definition:** `git stash` takes your uncommitted changes (staged and unstaged), saves them on a stack, and reverts your working directory to the last clean commit (`HEAD`).
+
+---
+
+## 2. The Critical Commands
+
+Do not memorize everything. You only need these to survive.
+
+### Stashing (Hiding the mess)
+When you need to switch branches but your work is messy:
+
+```bash
+# Standard stash (ignores new/untracked files)
+git stash
+
+# The BETTER stash (includes new files)
+git stash -u
