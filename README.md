@@ -232,3 +232,69 @@ cat .git/HEAD
 git checkout [hash-from-step-1]
 cat .git/HEAD
 # Output: [hash] -> HEAD now points directly to a commit. You are "detached".
+```
+
+## The Kitchen Analogy: Git Flow
+
+- **Idea**: To master Git, stop thinking about files and start thinking like a chef.
+
+## Core Places in Git (Kitchen Map)
+
+- **Working Directory (The Cutting Board)**: Where you actively edit files; messy, unfinished, “raw ingredients.”
+- **Staging Area / Index (The Prep Tray)**: Where you choose exactly what will go into the next commit; `git add` loads the tray.
+- **Commit (The Finished Dish)**: A saved snapshot with a unique identity (the hash); permanent in history.
+- **Git Log (The Chef’s Journal)**: The chronological record of commits; if it’s not recorded, it didn’t happen.
+- **Stash (The Refrigerator)**: Temporary storage for unfinished work so you can switch tasks without committing.
+
+## The Starting Point: Git Log
+
+- **Truth**: `git log` is the source of truth for what actually happened in the repository.
+- **The Hash**: Every commit is identified by a unique SHA-1 hash (a fingerprint of the repo state).
+- **Author vs. Committer**:
+  - **Author**: Who wrote the code/changes.
+  - **Committer**: Who actually committed/applied it to the repository (can differ).
+
+## Staging & Stashing
+
+- **Staging**: Use `git add` intentionally; avoid blindly running `git add .` and mixing unrelated changes in one commit.
+- **Stashing**: Use `git stash` when interrupted; it clears your board without forcing a “garbage commit” just to save progress.
+
+## References: Bookmarks in Time
+
+- **HEAD**: The “you are here” pointer; usually points to the latest commit on your current branch.
+- **Branches**: Not folders—just lightweight, movable pointers to a commit.
+- **Tags**: Permanent labels for specific commits (e.g., `v1.0`) that don’t move.
+
+## Merging & ReReRe
+
+- **Merging**: Bringing two different timelines together.
+- **ReReRe (Reuse Recorded Resolution)**: If enabled, Git records how you resolved a conflict and can reuse that resolution when the same conflict appears again.
+
+## History, Diffs & Fixing Mistakes
+
+- **Diffs**: The “before and after” view of your code.
+- **Reset**: Moving the pointer backward.
+  - **`--soft`**: Moves the pointer but leaves your work staged (on the prep tray).
+  - **`--hard`**: Discards work in your working directory; the nuclear option.
+- **Revert**: Creates a new commit that does the opposite of a previous one; safer for undoing changes on shared branches.
+
+## Rebasing vs. Amending
+
+- **Amending**: `git commit --amend` fixes the very last commit (message and/or contents)—perfect when you forget the “salt.”
+- **Rebasing**: Rewrites history by replaying commits onto a new base; creates a clean, linear history but is risky on public/shared branches.
+
+## Advanced Hunting: Bisect & Grep
+
+- **Grep**: Searching the repo (and optionally history) for a string, symbol, or function.
+- **Bisect**: The “Who broke the oven?” tool; uses binary search to find the commit that introduced a bug by walking from “good” to “bad.”
+
+## Hooks: The Kitchen Guards
+
+- **Hooks**: Scripts that run on specific events.
+  - **Pre-commit**: Runs before a commit finalizes; block dirty code or failed tests.
+  - **Post-receive**: Runs after code is pushed to a server; trigger deployments/automation.
+
+## Pro-Tip: The Reflog
+
+- **Reflog**: If you think you deleted a branch or used `reset --hard` by mistake, run `git reflog`.
+- **Why it helps**: Git keeps a local record of where `HEAD` and refs pointed recently; work is rarely truly gone until garbage collection prunes it.
