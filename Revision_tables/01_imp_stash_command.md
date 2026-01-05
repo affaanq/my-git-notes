@@ -7,7 +7,7 @@ Follow these steps to safely move your work-in-progress to the side and bring it
 
 | Step | Action | Command | Purpose |
 | :--- | :--- | :--- | :--- |
-| **1** | **Save** | `git stash save "your_message"` | Labels your changes so you don't have to guess what's inside. |
+| **1** | **Save** | `git stash push -m "your_message"` | Labels your changes so you don't have to guess what's inside. |
 | **2** | **Verify** | `git stash list` | Confirms the stash exists in the stack. |
 | **3** | **Switch** | `git checkout <other_branch>` | Move to the new task/bug fix. |
 | **4** | **Return** | `git checkout <original_branch>` | Move back to the starting point. |
